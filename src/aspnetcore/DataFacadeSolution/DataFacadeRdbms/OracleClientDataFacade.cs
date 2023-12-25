@@ -4,19 +4,23 @@ using System.Data.OracleClient;
 
 namespace DataFacadeRdbms
 {
+    /// <inheritdoc />
     public sealed class OracleClientDataFacade: IDataFacade
     {
         #region Public Methods
+        /// <inheritdoc />
         public IDbConnection GetDbConnection(string connectionString)
         {
             return new OracleConnection(connectionString);
         }
 
+        /// <inheritdoc />
         public IDbTransaction GetTransaction(IDbConnection conn)
         {
             return conn.BeginTransaction();
         }
 
+        /// <inheritdoc />
         public void CloseConnection(IDbConnection conn)
         {
             if (conn != null && conn.State != ConnectionState.Closed)
@@ -25,16 +29,19 @@ namespace DataFacadeRdbms
             }
         }
 
+        /// <inheritdoc />
         public IDbCommand GetDbCommand(string commandText, IDbConnection conn)
         {
             return new OracleCommand(commandText, conn as OracleConnection);
         }
 
+        /// <inheritdoc />
         public IDbCommand GetDbCommand(string commandText, IDbConnection conn, IDbTransaction tran)
         {
             return new OracleCommand(commandText, (OracleConnection)conn, (OracleTransaction)tran);
         }
 
+        /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, object value)
         {
             DbCommand dbCmd = (DbCommand)cmd;
@@ -44,6 +51,7 @@ namespace DataFacadeRdbms
             oracleCmd.Parameters.Add(param, GetOracleDbTypeFromDbParamType(dbParamType)).Value = value;
         }
 
+        /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, int size, object value)
         {
             DbCommand dbCmd = (DbCommand)cmd;
@@ -53,6 +61,7 @@ namespace DataFacadeRdbms
             oracleCmd.Parameters.Add(param, GetOracleDbTypeFromDbParamType(dbParamType), size).Value = value;
         }
 
+        /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, ParameterDirection paramDirection)
         {
             DbCommand dbCmd = (DbCommand)cmd;
@@ -64,26 +73,31 @@ namespace DataFacadeRdbms
             oracleCmd.Parameters.Add(param, oracleType).Direction = paramDirection;
         }
 
+        /// <inheritdoc />
         public int ExecuteNonQuery(IDbCommand cmd)
         {
             return cmd.ExecuteNonQuery();
         }
 
+        /// <inheritdoc />
         public IDataReader ExecuteReader(IDbCommand cmd)
         {
             return ExecuteReader(cmd, CommandBehavior.Default);
         }
 
+        /// <inheritdoc />
         public IDataReader ExecuteReader(IDbCommand cmd, CommandBehavior cmdBehavior)
         {
             return cmd.ExecuteReader(cmdBehavior);
         }
 
+        /// <inheritdoc />
         public object ExecuteScalar(IDbCommand cmd)
         {
             return cmd.ExecuteScalar();
         }
 
+        /// <inheritdoc />
         public void CloseDbConnection(IDbConnection connection)
         {
             if (connection.State == ConnectionState.Open)
@@ -92,13 +106,20 @@ namespace DataFacadeRdbms
             }
         }
 
+        /// <inheritdoc />
         public object SafeConvertFromDBNull(IDataReader reader, string columnName)
         {
             return DBNull.Value.Equals(reader[columnName]) ? null : reader[columnName];
         }
         #endregion
 
-        #region Private Methods
+        #region Private Methods        
+        /// <summary>
+        /// Gets the type of the oracle database type from database parameter.
+        /// </summary>
+        /// <param name="dbParamType">Type of the database parameter.</param>
+        /// <returns>A datatypes equivalent for given database.</returns>
+        /// <exception cref="System.ArgumentException">Invalid Db tyep.</exception>
         private OracleType GetOracleDbTypeFromDbParamType(DbParamType dbParamType)
         {
            

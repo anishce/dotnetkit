@@ -1,5 +1,8 @@
 ﻿namespace DataFacadeRdbms
 {
+    /// <summary>
+    /// An enum for Database client type
+    /// </summary>
     public enum DbClientType
     {
         SqlClient=1,
@@ -8,6 +11,9 @@
         OdbcClient=4
     }
 
+    /// <summary>
+    /// An enum for Database Parameter types
+    /// </summary>
     public enum DbParamType
     {
         AnsiString = 0,
