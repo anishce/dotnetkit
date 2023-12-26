@@ -1,23 +1,28 @@
 ﻿using DataFacadeRdbms;
 using DataFacadeSolutionWeb.Dtos;
-using System.Data.Common;
+using DataFacadeSolutionWeb.Helpers;
 
 namespace DataFacadeSolutionWeb.Repositories
 {
     public class EmployeeRepository
     {
-        private readonly IDataFacade dataFacade;
+        private readonly IDataFacade dataFacade = null!;
+        private readonly string connectionString = string.Empty;
 
-        public EmployeeRepository(IDataFacade dataFacade)
+        public EmployeeRepository(IDataFacade dataFacade, IConfigSetting configSetting)
         {
             this.dataFacade = dataFacade;
+            connectionString = configSetting.GetConnectionString("DefaultConnection");
         }
 
         public EmployeeDto GetEmployee(int id)
         {
-            var dbConnection = this.dataFacade.GetDbConnection("");
-            dbConnection.Open();
+            using (var dbConnection = this.dataFacade.GetDbConnection(connectionString))
+            {
+                dbConnection.Open();
 
+                dataFacade.CloseConnection(dbConnection);
+            }
             return new EmployeeDto();
         }
     }
