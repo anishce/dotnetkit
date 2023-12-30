@@ -1,4 +1,7 @@
 ﻿using DataFacadeRdbms;
+using DataFacadeSolutionWeb.Helpers;
+using DataFacadeSolutionWeb.Repositories;
+using DataFacadeSolutionWeb.Services;
 
 namespace DataFacadeSolutionWeb.Extensions
 {
@@ -6,7 +9,10 @@ namespace DataFacadeSolutionWeb.Extensions
     {
         public static IServiceCollection AddServiceDepedencies(this IServiceCollection services)
         {
-            services.AddTransient<IDataFacade, SqlClientDataFacade>();
+            services.AddScoped<IConfigSetting, ConfigSetting>();
+            services.AddScoped<IDataFacade, SqlClientDataFacade>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
             return services;
         }
     }
