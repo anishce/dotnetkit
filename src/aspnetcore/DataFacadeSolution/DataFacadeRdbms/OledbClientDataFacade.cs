@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
+using System.Runtime.Versioning;
 
 namespace DataFacadeRdbms
 {
@@ -9,6 +10,7 @@ namespace DataFacadeRdbms
     {
         #region Public Methods
         /// <inheritdoc />
+        [SupportedOSPlatform("windows")]
         public IDbConnection GetDbConnection(string connectionString)
         {
             return new OleDbConnection(connectionString);
@@ -29,27 +31,31 @@ namespace DataFacadeRdbms
             }
         }
 
+        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public IDbCommand GetDbCommand(string commandText,IDbConnection conn)
         {
             return new OleDbCommand(commandText, (OleDbConnection)conn);
         }
 
+        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public IDbCommand GetDbCommand(string commandText, IDbConnection conn, IDbTransaction tran)
         {
             return new OleDbCommand(commandText, (OleDbConnection)conn, (OleDbTransaction)tran);
         }
 
+        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, object value)
         {
             OleDbCommand oleDbCmd = cmd as OleDbCommand;
             OleDbType oleDbType = GetOleDbTypeFromDbParamType(dbParamType);
 
-            oleDbCmd.Parameters.Add(param, oleDbType).Value = value;
+            oleDbCmd!.Parameters.Add(param, oleDbType).Value = value;
         }
 
+        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, int size, object value)
         {
@@ -59,16 +65,17 @@ namespace DataFacadeRdbms
 
             OleDbType oleDbType = GetOleDbTypeFromDbParamType(dbParamType);
 
-            oleDbCmd.Parameters.Add(param, oleDbType, size).Value = value;
+            oleDbCmd!.Parameters.Add(param, oleDbType, size).Value = value;
         }
 
+        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, ParameterDirection paramDirection)
         {
             OleDbCommand oleDbCmd = cmd as OleDbCommand;
             OleDbType oleDbType = GetOleDbTypeFromDbParamType(dbParamType);
 
-            oleDbCmd.Parameters.Add(param, oleDbType).Direction = paramDirection;
+            oleDbCmd!.Parameters.Add(param, oleDbType).Direction = paramDirection;
         }
 
         /// <inheritdoc />
@@ -89,19 +96,20 @@ namespace DataFacadeRdbms
             return cmd.ExecuteNonQuery();
         }
         /// <inheritdoc />
-        public object ExecuteScalar(IDbCommand cmd)
+        public object? ExecuteScalar(IDbCommand cmd)
         {
             return cmd.ExecuteScalar();
         }
 
         /// <inheritdoc />
-        public object SafeConvertFromDBNull(IDataReader reader, string columnName)
+        public object? SafeConvertFromDBNull(IDataReader reader, string columnName)
         {
             return DBNull.Value.Equals(reader[columnName]) ? null : reader[columnName];
         }
         #endregion
 
-        #region Private Methods        
+        #region Private Methods      
+        [SupportedOSPlatform("windows")]
         /// <summary>
         /// Gets the type of the OLE database type from database parameter.
         /// </summary>

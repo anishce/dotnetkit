@@ -1,6 +1,8 @@
 ﻿using DataFacadeRdbms;
 using DataFacadeSolutionWeb.Dtos;
 using DataFacadeSolutionWeb.Helpers;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace DataFacadeSolutionWeb.Repositories
 {
@@ -21,7 +23,11 @@ namespace DataFacadeSolutionWeb.Repositories
 
             using (var dbConnection = this.dataFacade.GetDbConnection(connectionString))
             {
-                dbConnection.Open();
+                if (dbConnection.State != ConnectionState.Open)
+                {
+                    dbConnection.Close();
+                    dbConnection.Open();
+                }
 
                 using (var dbCommand = dataFacade.GetDbCommand($"SELECT * FROM [dbo].[Employee] WHERE Id={id}", dbConnection))
                 {
