@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFacadeRdbms", "DataFacadeRdbms\DataFacadeRdbms.csproj", "{450FE2A9-BD98-42F7-B198-BFF3B113CD06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataFacadeSolutionWeb", "DataFacadeSolutionWeb\DataFacadeSolutionWeb.csproj", "{DCCF5AE9-C437-4C79-97DF-405F4A794557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataFacadeSolutionWeb", "DataFacadeSolutionWeb\DataFacadeSolutionWeb.csproj", "{DCCF5AE9-C437-4C79-97DF-405F4A794557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

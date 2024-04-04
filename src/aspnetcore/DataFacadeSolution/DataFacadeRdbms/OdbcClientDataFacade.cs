@@ -1,25 +1,19 @@
 ﻿using System.Data;
 using System.Data.Common;
-using System.Data.OleDb;
-using System.Runtime.Versioning;
+using System.Data.Odbc;
+using System.Data.SqlClient;
 
 namespace DataFacadeRdbms
 {
     /// <inheritdoc />
-    public sealed class OledbClientDataFacade : IDataFacade
+    public sealed class OdbcClientDataFacade : IDataFacade
     {
         #region Public Methods
-        /// <inheritdoc />
-        [SupportedOSPlatform("windows")]
-        public IDbConnection GetDbConnection(string connectionString)
-        {
-            return new OleDbConnection(connectionString);
-        }
 
         /// <inheritdoc />
-        public IDbTransaction GetTransaction(IDbConnection conn)
+        public IDbConnection GetDbConnection(string connectionString)
         {
-            return conn.BeginTransaction();
+            return new OdbcConnection(connectionString);
         }
 
         /// <inheritdoc />
@@ -31,51 +25,56 @@ namespace DataFacadeRdbms
             }
         }
 
-        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
-        public IDbCommand GetDbCommand(string commandText,IDbConnection conn)
+        public IDbTransaction GetTransaction(IDbConnection conn)
         {
-            return new OleDbCommand(commandText, (OleDbConnection)conn);
+            return conn.BeginTransaction();
         }
 
-        [SupportedOSPlatform("windows")]
+        /// <inheritdoc />
+        public IDbCommand GetDbCommand(string commandText, IDbConnection conn)
+        {
+            return new OdbcCommand(commandText, (OdbcConnection)conn);
+        }
+
         /// <inheritdoc />
         public IDbCommand GetDbCommand(string commandText, IDbConnection conn, IDbTransaction tran)
         {
-            return new OleDbCommand(commandText, (OleDbConnection)conn, (OleDbTransaction)tran);
+            return new OdbcCommand(commandText, (OdbcConnection)conn, (OdbcTransaction)tran);
         }
 
-        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, object value)
         {
-            OleDbCommand oleDbCmd = cmd as OleDbCommand;
-            OleDbType oleDbType = GetOleDbTypeFromDbParamType(dbParamType);
+            DbCommand dbCmd = (DbCommand)cmd;
 
-            oleDbCmd!.Parameters.Add(param, oleDbType).Value = value;
+            OdbcCommand sqlCmd = dbCmd as OdbcCommand;
+
+            OdbcType sqlDbType = GetSqlDbTypeFromDbParamType(dbParamType);
+
+            sqlCmd.Parameters.Add(param, sqlDbType).Value = value;
         }
 
-        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, int size, object value)
         {
             DbCommand dbCmd = (DbCommand)cmd;
 
-            OleDbCommand oleDbCmd = dbCmd as OleDbCommand;
+            OdbcCommand sqlCmd = dbCmd as OdbcCommand;
 
-            OleDbType oleDbType = GetOleDbTypeFromDbParamType(dbParamType);
-
-            oleDbCmd!.Parameters.Add(param, oleDbType, size).Value = value;
+            sqlCmd.Parameters.Add(param, GetSqlDbTypeFromDbParamType(dbParamType), size).Value = value;
         }
 
-        [SupportedOSPlatform("windows")]
         /// <inheritdoc />
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, ParameterDirection paramDirection)
         {
-            OleDbCommand oleDbCmd = cmd as OleDbCommand;
-            OleDbType oleDbType = GetOleDbTypeFromDbParamType(dbParamType);
+            DbCommand dbCmd = (DbCommand)cmd;
 
-            oleDbCmd!.Parameters.Add(param, oleDbType).Direction = paramDirection;
+            OdbcCommand sqlCmd = dbCmd as OdbcCommand;
+
+            OdbcType sqlDbType = GetSqlDbTypeFromDbParamType(dbParamType);
+
+            sqlCmd.Parameters.Add(param, sqlDbType).Direction = paramDirection;
         }
 
         /// <inheritdoc />
@@ -95,6 +94,7 @@ namespace DataFacadeRdbms
         {
             return cmd.ExecuteNonQuery();
         }
+
         /// <inheritdoc />
         public object ExecuteScalar(IDbCommand cmd)
         {
@@ -108,41 +108,46 @@ namespace DataFacadeRdbms
         }
         #endregion
 
-        #region Private Methods      
-        [SupportedOSPlatform("windows")]
+        #region Private Methods        
         /// <summary>
-        /// Gets the type of the OLE database type from database parameter.
+        /// Gets the type of the SQL database type from database parameter.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>A datatypes equivalent for given database.</returns>
         /// <exception cref="System.ArgumentException">Invalid Db Param type.</exception>
-        private OleDbType GetOleDbTypeFromDbParamType(DbParamType type)
+        private OdbcType GetSqlDbTypeFromDbParamType(DbParamType type)
         {
             switch (type)
             {
                 case DbParamType.String:
-                    return OleDbType.VarChar;
+                    return OdbcType.VarChar;
 
-                case DbParamType.DbDate:
-                    return OleDbType.DBDate;
+                case DbParamType.UnicodeString:
+                    return OdbcType.NVarChar;
+                
+                case DbParamType.DateTime:
+                    return OdbcType.DateTime;
 
                 case DbParamType.Date:
-                    return OleDbType.Date;
+                    return OdbcType.Date;
 
-                case DbParamType.DbTime:
-                    return OleDbType.DBTime;
+                case DbParamType.Time:
+                    return OdbcType.Time;
 
                 case DbParamType.Int16:
-                    return OleDbType.SmallInt;
+                    return OdbcType.TinyInt;
 
                 case DbParamType.Int32:
-                    return OleDbType.Integer;
+                    return OdbcType.Int;
 
                 case DbParamType.Int64:
-                    return OleDbType.BigInt;
+                    return OdbcType.BigInt;
 
                 case DbParamType.Decimal:
-                    return OleDbType.Decimal;
+                    return OdbcType.Decimal;
+
+                case DbParamType.Boolean:
+                    return OdbcType.Bit;
 
                 default:
                     throw new ArgumentException("Invalid Db Param type.");
