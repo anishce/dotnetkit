@@ -2,7 +2,7 @@
 
 namespace LoggingKitBase
 {
-    public class NullLogAdapter : ILogger
+    public sealed class NullLogAdapter : ILogger
     {
         public void Log(LogLevel logLevel, Exception exception, string message, params object[] args)
         {

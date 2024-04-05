@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingKitBase", "LoggingKitBase\LoggingKitBase.csproj", "{A8296686-A639-43CE-BF9A-713EB78A9283}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingKitBase", "LoggingKitBase\LoggingKitBase.csproj", "{A8296686-A639-43CE-BF9A-713EB78A9283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingKitBase.NLog", "LoggingKitBase.NLog\LoggingKitBase.NLog.csproj", "{95EA1106-9BD0-4610-9F59-DA6226565477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingKitBase.SeriLog", "LoggingKitBase.SeriLog\LoggingKitBase.SeriLog.csproj", "{602D94A4-4727-4F14-9A00-CCF24558141F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingKitBase.Log4Net", "LoggingKitBase.Log4Net\LoggingKitBase.Log4Net.csproj", "{4EB593FB-C3F1-4EBB-90D3-A4804C393933}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingKit.Web.UI", "LoggingKit.Web.UI\LoggingKit.Web.UI.csproj", "{A493506D-0BFB-4C21-B2FC-58C01AEF8651}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{A8296686-A639-43CE-BF9A-713EB78A9283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8296686-A639-43CE-BF9A-713EB78A9283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8296686-A639-43CE-BF9A-713EB78A9283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95EA1106-9BD0-4610-9F59-DA6226565477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95EA1106-9BD0-4610-9F59-DA6226565477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95EA1106-9BD0-4610-9F59-DA6226565477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95EA1106-9BD0-4610-9F59-DA6226565477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{602D94A4-4727-4F14-9A00-CCF24558141F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{602D94A4-4727-4F14-9A00-CCF24558141F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{602D94A4-4727-4F14-9A00-CCF24558141F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{602D94A4-4727-4F14-9A00-CCF24558141F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EB593FB-C3F1-4EBB-90D3-A4804C393933}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EB593FB-C3F1-4EBB-90D3-A4804C393933}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EB593FB-C3F1-4EBB-90D3-A4804C393933}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EB593FB-C3F1-4EBB-90D3-A4804C393933}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A493506D-0BFB-4C21-B2FC-58C01AEF8651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A493506D-0BFB-4C21-B2FC-58C01AEF8651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A493506D-0BFB-4C21-B2FC-58C01AEF8651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A493506D-0BFB-4C21-B2FC-58C01AEF8651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
