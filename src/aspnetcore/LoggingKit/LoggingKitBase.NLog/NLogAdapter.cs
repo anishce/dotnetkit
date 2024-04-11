@@ -3,7 +3,7 @@ using System;
 
 namespace LoggingKitBase.NLog
 {
-    public sealed class NLogAdapter : ILogger
+    public sealed class NLogAdapter : ILogAdapter
     {
         #region Members
         private Logger logger = null!;

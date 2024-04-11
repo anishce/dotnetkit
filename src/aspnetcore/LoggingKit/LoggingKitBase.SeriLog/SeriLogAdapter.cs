@@ -2,7 +2,7 @@
 
 namespace LoggingKitBase.SeriLog
 {
-    public sealed class SeriLogAdapter : ILogger 
+    public sealed class SeriLogAdapter : ILogAdapter 
     {
         public void Log(LogLevel logLevel, string message)
         {

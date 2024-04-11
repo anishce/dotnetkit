@@ -2,7 +2,7 @@
 
 namespace LoggingKitBase.Log4Net
 {
-    public sealed class LogFourNetAdapter : ILogger
+    public sealed class LogFourNetAdapter : ILogAdapter
     {
         public void Log(LogLevel logLevel, string message)
         {

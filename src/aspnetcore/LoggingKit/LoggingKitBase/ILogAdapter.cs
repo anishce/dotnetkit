@@ -2,7 +2,7 @@
 
 namespace LoggingKitBase
 {
-    public interface ILogger
+    public interface ILogAdapter
     {
         void Log(LogLevel logLevel, string message);
         void Log(LogLevel logLevel, Exception exception);

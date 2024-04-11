@@ -1,7 +1,12 @@
+using LoggingKitBase;
+using LoggingKitBase.NLog;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ILogAdapter, NLogAdapter>();
 
 var app = builder.Build();
 
