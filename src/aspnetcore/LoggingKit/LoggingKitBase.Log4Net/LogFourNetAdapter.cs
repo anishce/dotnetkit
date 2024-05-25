@@ -95,7 +95,7 @@ namespace LoggingKitBase.Log4Net
                     break;
 
                 case LogLevel.FATAL:
-                    this.logger.Fatal(message, exception, );
+                    this.logger.Fatal(message, exception);
                     break;
                 case LogLevel.Trace:
                     throw new ArgumentNullException("Invalid log level.");
@@ -107,17 +107,102 @@ namespace LoggingKitBase.Log4Net
 
         public void Log(LogLevel logLevel, string message, params object[] args)
         {
-            throw new NotImplementedException();
+            var argStr = string.Join(",", args);
+            message = $"Message: {message}. Args: {argStr}";
+
+            switch (logLevel)
+            {
+                case LogLevel.Error:
+                    this.logger.Error(message);
+                    break;
+
+                case LogLevel.Debug:
+                    this.logger.Debug(message);
+                    break;
+
+                case LogLevel.Information:
+                    this.logger.Info(message);
+                    break;
+
+                case LogLevel.Warning:
+                    this.logger.Warn(message);
+                    break;
+
+                case LogLevel.FATAL:
+                    this.logger.Fatal(message);
+                    break;
+                case LogLevel.Trace:
+                    throw new ArgumentNullException("Invalid log level.");
+
+                default:
+                    throw new ArgumentNullException("Invalid log level.");
+            }
         }
 
         public void Log(LogLevel logLevel, Exception exception, params object[] args)
         {
-            throw new NotImplementedException();
+            var argStr = string.Join(",", args);
+            var message = $"Message: {exception.Message}. Args: {argStr}";
+            switch (logLevel)
+            {
+                case LogLevel.Error:
+                    this.logger.Error(message,exception);
+                    break;
+
+                case LogLevel.Debug:
+                    this.logger.Debug(message, exception);
+                    break;
+
+                case LogLevel.Information:
+                    this.logger.Info(message,exception);
+                    break;
+
+                case LogLevel.Warning:
+                    this.logger.Warn(message, exception);
+                    break;
+
+                case LogLevel.FATAL:
+                    this.logger.Fatal(message, exception);
+                    break;
+                case LogLevel.Trace:
+                    throw new ArgumentNullException("Invalid log level.");
+
+                default:
+                    throw new ArgumentNullException("Invalid log level.");
+            }
         }
 
         public void Log(LogLevel logLevel, Exception exception, string message, params object[] args)
         {
-            throw new NotImplementedException();
+            var argStr = string.Join(",", args);
+            message = $"Message: {exception.Message}. Args: {argStr}";
+            switch (logLevel)
+            {
+                case LogLevel.Error:
+                    this.logger.Error(message, exception);
+                    break;
+
+                case LogLevel.Debug:
+                    this.logger.Debug(message, exception);
+                    break;
+
+                case LogLevel.Information:
+                    this.logger.Info(message, exception);
+                    break;
+
+                case LogLevel.Warning:
+                    this.logger.Warn(message, exception);
+                    break;
+
+                case LogLevel.FATAL:
+                    this.logger.Fatal(message, exception);
+                    break;
+                case LogLevel.Trace:
+                    throw new ArgumentNullException("Invalid log level.");
+
+                default:
+                    throw new ArgumentNullException("Invalid log level.");
+            }
         }
     }
 }
