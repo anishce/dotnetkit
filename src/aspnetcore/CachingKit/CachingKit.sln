@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingKitBase", "CachingKitBase\CachingKitBase.csproj", "{F93F254E-876A-4777-9781-DBE0E92E0ED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachingKitBase", "CachingKitBase\CachingKitBase.csproj", "{F93F254E-876A-4777-9781-DBE0E92E0ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingKit.InMemory", "CachingKit.InMemory\CachingKit.InMemory.csproj", "{33B893CA-1FE2-4D2F-B921-8EE89A28CF58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachingKit.InMemory", "CachingKit.InMemory\CachingKit.InMemory.csproj", "{33B893CA-1FE2-4D2F-B921-8EE89A28CF58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingKit.MemCached", "CachingKit.MemCached\CachingKit.MemCached.csproj", "{01A526C5-75BE-4DE9-8FD3-D6A73DACB45C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachingKit.MemCached", "CachingKit.MemCached\CachingKit.MemCached.csproj", "{01A526C5-75BE-4DE9-8FD3-D6A73DACB45C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingKit.Web.UI", "CachingKit.Web.UI\CachingKit.Web.UI.csproj", "{CE691FF4-28A5-49E1-9A46-6DBC3C8DF50E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CachingKit.Web.UI", "CachingKit.Web.UI\CachingKit.Web.UI.csproj", "{CE691FF4-28A5-49E1-9A46-6DBC3C8DF50E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingKit.Redis", "CachingKit.Redis\CachingKit.Redis.csproj", "{EA26A0CD-63BD-48B8-A890-8923705DE448}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{CE691FF4-28A5-49E1-9A46-6DBC3C8DF50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE691FF4-28A5-49E1-9A46-6DBC3C8DF50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE691FF4-28A5-49E1-9A46-6DBC3C8DF50E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA26A0CD-63BD-48B8-A890-8923705DE448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA26A0CD-63BD-48B8-A890-8923705DE448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA26A0CD-63BD-48B8-A890-8923705DE448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA26A0CD-63BD-48B8-A890-8923705DE448}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
