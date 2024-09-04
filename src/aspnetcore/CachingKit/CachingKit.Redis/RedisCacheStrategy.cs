@@ -1,11 +1,6 @@
 ﻿using CachingKitBase;
 using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CachingKit.Redis
 {
@@ -38,7 +33,7 @@ namespace CachingKit.Redis
         public void Store<T>(string key, T data, TimeSpan? duration = null)
         {
             var jsonData = JsonSerializer.Serialize(data);
-            
+
             cache.SetString(key, jsonData);
         }
 
