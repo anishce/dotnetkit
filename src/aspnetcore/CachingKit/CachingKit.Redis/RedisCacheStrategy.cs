@@ -20,7 +20,7 @@ namespace CachingKit.Redis
 
         public void Remove(string key)
         {
-           
+            cache.Remove(key);
         }
 
         public T Retrieve<T>(string key)
