@@ -20,16 +20,22 @@ namespace CachingKit.InMemory
 
         public T Retrieve<T>(string key)
         {
-            if (_memoryCache != null)
+            if(_memoryCache is null)
             {
-                return _memoryCache.Get<T>(key);
+                throw new Exception(nameof(_memoryCache));
             }
-            return default(T);
+
+            return _memoryCache.Get<T>(key);
         }
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
         {
             _memoryCache.Set(key, data);
+        }
+
+        public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }
