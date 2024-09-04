@@ -17,5 +17,9 @@ namespace CachingKitBase
         public void Store<T>(string key, T data, TimeSpan? duration = null)
         {
         }
+
+        public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
+        {
+        }
     }
 }
