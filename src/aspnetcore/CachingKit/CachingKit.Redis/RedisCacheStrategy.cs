@@ -30,7 +30,9 @@ namespace CachingKit.Redis
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
         {
-            throw new NotImplementedException();
+            var jsonData = JsonSerializer.Serialize(data);
+            
+            cache.SetString(key, jsonData);
         }
 
         public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
