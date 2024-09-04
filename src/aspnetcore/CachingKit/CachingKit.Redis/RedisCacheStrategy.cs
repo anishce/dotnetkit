@@ -20,12 +20,19 @@ namespace CachingKit.Redis
 
         public void Remove(string key)
         {
-            throw new NotImplementedException();
+           
         }
 
         public T Retrieve<T>(string key)
         {
-            throw new NotImplementedException();
+            var jsonData = cache.GetStringAsync(key);
+
+            if (jsonData is null)
+            {
+                return default(T);
+            }
+
+            return JsonSerializer.Deserialize<T>(jsonData);
         }
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
