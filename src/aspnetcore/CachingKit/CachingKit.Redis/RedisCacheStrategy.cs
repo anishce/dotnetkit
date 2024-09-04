@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CachingKit.Redis
@@ -34,7 +35,14 @@ namespace CachingKit.Redis
 
         public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
         {
-            throw new NotImplementedException();
+            var options = new DistributedCacheEntryOptions();
+
+            options.AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromSeconds(60);
+            options.SlidingExpiration = slidingExpireTime;
+
+            var jsonData = JsonSerializer.Serialize(data);
+
+            cache.SetString(key, jsonData, options);
         }
     }
 }
