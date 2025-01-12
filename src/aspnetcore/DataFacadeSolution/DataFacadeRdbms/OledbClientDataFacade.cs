@@ -1,4 +1,9 @@
-﻿using System.Data;
+﻿// ************************************************************************
+// Copyright (c) AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
+using System.Data;
 using System.Data.Common;
 using System.Data.OleDb;
 using System.Runtime.Versioning;
@@ -33,7 +38,7 @@ namespace DataFacadeRdbms
 
         [SupportedOSPlatform("windows")]
         /// <inheritdoc />
-        public IDbCommand GetDbCommand(string commandText,IDbConnection conn)
+        public IDbCommand GetDbCommand(string commandText, IDbConnection conn)
         {
             return new OleDbCommand(commandText, (OleDbConnection)conn);
         }
