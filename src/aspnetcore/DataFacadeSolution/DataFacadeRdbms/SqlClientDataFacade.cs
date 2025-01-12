@@ -1,4 +1,9 @@
-﻿using System.Data;
+﻿// ************************************************************************
+// Copyright (c) AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 
@@ -123,7 +128,7 @@ namespace DataFacadeRdbms
 
                 case DbParamType.UnicodeString:
                     return SqlDbType.NVarChar;
-                
+
                 case DbParamType.DateTime:
                     return SqlDbType.DateTime;
 
