@@ -1,11 +1,16 @@
-﻿using System.Data;
+﻿// ************************************************************************
+// Copyright (c) AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
+using System.Data;
 using System.Data.Common;
 using System.Data.OracleClient;
 
 namespace DataFacadeRdbms
 {
     /// <inheritdoc />
-    public sealed class OracleClientDataFacade: IDataFacade
+    public sealed class OracleClientDataFacade : IDataFacade
     {
         #region Public Methods
         /// <inheritdoc />
@@ -122,7 +127,7 @@ namespace DataFacadeRdbms
         /// <exception cref="System.ArgumentException">Invalid Db tyep.</exception>
         private OracleType GetOracleDbTypeFromDbParamType(DbParamType dbParamType)
         {
-           
+
             switch (dbParamType)
             {
                 case DbParamType.AnsiString:
