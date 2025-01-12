@@ -1,4 +1,9 @@
-﻿using System.Data;
+﻿// ************************************************************************
+// Copyright (c) AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
+using System.Data;
 
 namespace DataFacadeRdbms
 {
@@ -62,7 +67,7 @@ namespace DataFacadeRdbms
         /// <param name="commandText">The command text.</param>
         /// <param name="conn">The connection.</param>
         /// <returns>The database command.</returns>
-        IDbCommand GetDbCommand(string commandText,IDbConnection conn);
+        IDbCommand GetDbCommand(string commandText, IDbConnection conn);
 
         /// <summary>
         /// Gets the database command.
@@ -107,6 +112,6 @@ namespace DataFacadeRdbms
         /// <param name="reader">The reader.</param>
         /// <param name="columnName">Name of the column.</param>
         /// <returns>An object if db column doesn't have null value otherwise null.<returns>
-        object? SafeConvertFromDBNull(IDataReader reader,string columnName);
+        object? SafeConvertFromDBNull(IDataReader reader, string columnName);
     }
 }
