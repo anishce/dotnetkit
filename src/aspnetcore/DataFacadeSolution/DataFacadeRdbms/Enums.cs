@@ -1,14 +1,19 @@
-﻿namespace DataFacadeRdbms
+﻿// ************************************************************************
+// Copyright (c) AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
+namespace DataFacadeRdbms
 {
     /// <summary>
     /// An enum for Database client type
     /// </summary>
     public enum DbClientType
     {
-        SqlClient=1,
-        OracleClient=2,
-        OledbClient=3,
-        OdbcClient=4
+        SqlClient = 1,
+        OracleClient = 2,
+        OledbClient = 3,
+        OdbcClient = 4
     }
 
     /// <summary>
@@ -43,11 +48,11 @@
         Xml = 25,
         DateTime2 = 26,
         DateTimeOffset = 27,
-        Ntext=28,
-        Float=29,
-        Table=30,
-        DbDate=31,
-        DbTime=32,
-        UnicodeString=33
+        Ntext = 28,
+        Float = 29,
+        Table = 30,
+        DbDate = 31,
+        DbTime = 32,
+        UnicodeString = 33
     }
 }
