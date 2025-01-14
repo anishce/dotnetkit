@@ -1,3 +1,8 @@
+// ************************************************************************
+// Copyright (c) 2025 AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
 using DataFacadeSolutionWeb.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
