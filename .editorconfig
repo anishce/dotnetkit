@@ -1,7 +1,7 @@
 
 [*.{cs,vb}]
 #### Naming styles ####
-file_header_template = ************************************************************************\nCopyright (c) AnishCeDev All Rights Reserved.\nAuthor: AnishCeDev\n************************************************************************
+file_header_template = ************************************************************************\nCopyright (c) 2025 AnishCeDev All Rights Reserved.\nAuthor: AnishCeDev\n************************************************************************
 # Naming rules
 
 dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
