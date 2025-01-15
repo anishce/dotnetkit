@@ -1,7 +1,11 @@
-﻿using DataFacadeRdbms;
+﻿// ************************************************************************
+// Copyright (c) 2025 AnishCeDev All Rights Reserved.
+// Author: AnishCeDev
+// ************************************************************************
+
+using DataFacadeRdbms;
 using DataFacadeSolutionWeb.Dtos;
 using DataFacadeSolutionWeb.Helpers;
-using System.Data.SqlClient;
 using System.Data;
 
 namespace DataFacadeSolutionWeb.Repositories
