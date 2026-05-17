@@ -18,8 +18,9 @@ namespace CachingKit.HybridCache
     {
         public static void AddHybridCache(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHybridCache(configuration);
             // Register the HybridCacheStrategy as the implementation of ICacheStrategy
-            services.AddScoped<ICacheStrategy, HybridCache>();
+            //services.AddScoped<ICacheStrategy, HybridCache>();
             // Optionally, you can also register any dependencies required by HybridCacheStrategy here
             // For example, if HybridCacheStrategy depends on other services, you can register them as well
         }
