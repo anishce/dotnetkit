@@ -25,7 +25,7 @@ namespace CachingKit.InMemory
                 throw new Exception(nameof(_memoryCache));
             }
 
-            return _memoryCache.Get<T>(key);
+            return _memoryCache.Get<T>(key)!;   
         }
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
