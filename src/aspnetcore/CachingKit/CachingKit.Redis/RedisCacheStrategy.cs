@@ -20,14 +20,18 @@ namespace CachingKit.Redis
 
         public T Retrieve<T>(string key)
         {
-            var jsonData = cache.GetStringAsync(key);
+            // Synchronously wait for the cached string (keep method signature unchanged).
+            var jsonData = cache.GetStringAsync(key).GetAwaiter().GetResult();
 
-            if (jsonData is null)
+            if (string.IsNullOrEmpty(jsonData))
             {
-                return default(T);
+                return default!;
             }
 
-            return JsonSerializer.Deserialize<T>(jsonData);
+            var deserialized = JsonSerializer.Deserialize<T>(jsonData);
+
+            // If deserialization returns null, return default. Use null-forgiving to silence CS8603.
+            return deserialized is null ? default! : deserialized;
         }
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
