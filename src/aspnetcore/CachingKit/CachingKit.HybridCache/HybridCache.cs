@@ -9,6 +9,11 @@ namespace CachingKit.HybridCache
 {
     public class HybridCache : ICacheStrategy
     {
+        public HybridCache()
+        {
+            
+        }
+
         public void Remove(string key)
         {
             throw new NotImplementedException();
