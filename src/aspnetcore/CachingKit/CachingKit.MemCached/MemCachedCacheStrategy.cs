@@ -35,5 +35,10 @@ namespace CachingKit.MemCached
                 _memcachedClient.Set(key, data, 60 * 60);
             }
         }
+
+        public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
