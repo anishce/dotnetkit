@@ -17,6 +17,7 @@ namespace CachingKit.Web.UI.Controllers
 
             var countries = this.GetCountries();
 
+            // Disambiguate overloads by using a named parameter for the single-expiration overload
             _cacheStrategy.Store<IEnumerable<string>>("countries", countries);
         }
 
