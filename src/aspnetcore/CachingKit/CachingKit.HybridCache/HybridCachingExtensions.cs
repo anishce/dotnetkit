@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CachingKit.HybridCache
+namespace CachingKit.HybridCaching
 {
     public static class HybridCachingExtensions
     {
