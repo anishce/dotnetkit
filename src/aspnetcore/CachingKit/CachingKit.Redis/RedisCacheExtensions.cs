@@ -14,8 +14,8 @@ namespace CachingKit.Redis
         {
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = configuration.GetConnectionString("RedisCacheConnection");
-                options.InstanceName = configuration.GetValue<string>("Caching:Redis:InstanceName") ?? string.Empty;
+                options.Configuration = configuration.GetSection("ConnectionStrings:RedisCacheConnection").Value;
+                options.InstanceName = configuration.GetSection("Caching:Redis:InstanceName").Value ?? string.Empty;
             });
 
             return services;
