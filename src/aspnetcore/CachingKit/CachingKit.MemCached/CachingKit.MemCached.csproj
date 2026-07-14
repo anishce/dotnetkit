@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="EnyimMemcachedCore"/>
+	<PackageReference Include="MessagePack"/>
   </ItemGroup>
 
   <ItemGroup>
