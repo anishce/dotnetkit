@@ -1,15 +1,22 @@
-﻿using Enyim.Caching.Configuration;
+﻿using CachingKit.InMemory;
+using Enyim.Caching.Configuration;
 
 namespace CachingKit.Web.UI.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddMemcached(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            string cachingServer = configuration.GetValue<string>("Caching:Memcached:ServerHost") ?? string.Empty;
-            int cachingServerPort = configuration.GetValue<int>("Caching:Memcached:ServerPort");
+            //Add In-Memory Caching
+            services.AddInMemoryCaching(configuration);
 
-            return services.AddEnyimMemcached(o => o.Servers = new List<Server> { new Server { Address = cachingServer, Port = cachingServerPort } });
+            //Add Memcached Caching
+
+            //Add Redis Caching
+
+            //Add Hybrid Caching
+
+            return services;
         }
     }
 }
