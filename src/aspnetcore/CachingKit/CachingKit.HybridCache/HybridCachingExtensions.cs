@@ -16,7 +16,7 @@ namespace CachingKit.HybridCaching
 {
     public static class HybridCachingExtensions
     {
-        public static void AddHybridCaching(this IServiceCollection services, IConfiguration configuration)
+        public static void AddHybridCaching(this IServiceCollection services)
         {
             services.AddHybridCache();
             // Register the HybridCacheStrategy as the implementation of ICacheStrategy
