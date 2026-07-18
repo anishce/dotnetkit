@@ -4,19 +4,22 @@
 // ************************************************************************
 
 using CachingKitBase;
+using Microsoft.Extensions.Caching.Hybrid;
+using System.Xml.Linq;
 
 namespace CachingKit.HybridCaching
 {
     public class HybridCachingStrategy : ICacheStrategy
     {
-        public HybridCachingStrategy()
+        private readonly HybridCache hybridCache;
+        public HybridCachingStrategy(HybridCache hybridCache)
         {
-            
+            this.hybridCache = hybridCache;
         }
 
         public void Remove(string key)
         {
-            throw new NotImplementedException();
+            this.hybridCache.RemoveAsync(key).ConfigureAwait(true);
         }
 
         public T Retrieve<T>(string key)
@@ -26,12 +29,18 @@ namespace CachingKit.HybridCaching
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
         {
-            throw new NotImplementedException();
+            this.hybridCache.SetAsync(key, data).ConfigureAwait(true);
         }
 
         public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
         {
-            throw new NotImplementedException();
+            var options = new HybridCacheEntryOptions
+            {
+                Expiration = TimeSpan.FromHours(1),
+                LocalCacheExpiration = TimeSpan.FromMinutes(30)
+            };
+
+            this.hybridCache.SetAsync(key, data).ConfigureAwait(true);
         }
     }
 }
