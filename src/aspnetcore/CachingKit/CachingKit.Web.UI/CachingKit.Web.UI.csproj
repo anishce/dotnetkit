@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
+    <ProjectReference Include="..\CachingKit.HybridCache\CachingKit.HybridCaching.csproj" />
     <ProjectReference Include="..\CachingKit.InMemory\CachingKit.InMemory.csproj" />
     <ProjectReference Include="..\CachingKit.MemCached\CachingKit.MemCached.csproj" />
+    <ProjectReference Include="..\CachingKit.Redis\CachingKit.Redis.csproj" />
     <ProjectReference Include="..\CachingKitBase\CachingKitBase.csproj" />
   </ItemGroup>
 </Project>
