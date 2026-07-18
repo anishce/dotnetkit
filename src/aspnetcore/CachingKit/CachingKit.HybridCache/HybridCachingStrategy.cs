@@ -5,21 +5,16 @@
 
 using CachingKitBase;
 using Microsoft.Extensions.Caching.Hybrid;
-using System.Xml.Linq;
 
 namespace CachingKit.HybridCaching
 {
-    public class HybridCachingStrategy : ICacheStrategy
+    public class HybridCachingStrategy(HybridCache hybridCache) : ICacheStrategy
     {
-        private readonly HybridCache hybridCache;
-        public HybridCachingStrategy(HybridCache hybridCache)
-        {
-            this.hybridCache = hybridCache;
-        }
+        private readonly HybridCache hybridCache = hybridCache;
 
         public void Remove(string key)
         {
-            this.hybridCache.RemoveAsync(key).ConfigureAwait(true);
+            this.hybridCache.RemoveAsync(key).GetAwaiter().GetResult();
         }
 
         public T Retrieve<T>(string key)
@@ -29,18 +24,24 @@ namespace CachingKit.HybridCaching
 
         public void Store<T>(string key, T data, TimeSpan? duration = null)
         {
-            this.hybridCache.SetAsync(key, data).ConfigureAwait(true);
+            var options = new HybridCacheEntryOptions
+            {
+                Expiration = duration ?? TimeSpan.FromHours(1),
+                LocalCacheExpiration = TimeSpan.FromMinutes(30)
+            };
+
+            this.hybridCache.SetAsync(key, data, options).GetAwaiter().GetResult();
         }
 
         public void Store<T>(string key, T data, TimeSpan? absoluteExpireTime = null, TimeSpan? slidingExpireTime = null)
         {
             var options = new HybridCacheEntryOptions
             {
-                Expiration = TimeSpan.FromHours(1),
-                LocalCacheExpiration = TimeSpan.FromMinutes(30)
+                Expiration = absoluteExpireTime ?? TimeSpan.FromHours(1),
+                LocalCacheExpiration = slidingExpireTime ?? TimeSpan.FromMinutes(30)
             };
 
-            this.hybridCache.SetAsync(key, data).ConfigureAwait(true);
+            this.hybridCache.SetAsync(key, data, options).GetAwaiter().GetResult();
         }
     }
 }
