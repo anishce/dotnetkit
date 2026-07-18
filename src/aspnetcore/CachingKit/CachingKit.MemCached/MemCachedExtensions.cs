@@ -16,12 +16,13 @@ namespace CachingKit.MemCached
             string cachingServer = configuration.GetValue<string>("Caching:Memcached:ServerHost") ?? string.Empty;
             int cachingServerPort = configuration.GetValue<int>("Caching:Memcached:ServerPort");
 
-            return services.AddEnyimMemcached(o => o.Servers = new List<Server> {
-                new Server {
+            return services.AddEnyimMemcached(o => o.Servers = 
+            [
+                new() {
                     Address = cachingServer,
                     Port = cachingServerPort
                 }
-            });
+            ]);
         }
     }
 }
