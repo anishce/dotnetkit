@@ -5,7 +5,7 @@
 
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace DataFacadeRdbms
 {
@@ -52,11 +52,11 @@ namespace DataFacadeRdbms
         {
             DbCommand dbCmd = (DbCommand)cmd;
 
-            SqlCommand sqlCmd = dbCmd as SqlCommand;
+            SqlCommand? sqlCmd = dbCmd as SqlCommand;
 
             SqlDbType sqlDbType = GetSqlDbTypeFromDbParamType(dbParamType);
 
-            sqlCmd.Parameters.Add(param, sqlDbType).Value = value;
+            sqlCmd?.Parameters.Add(param, sqlDbType).Value = value;
         }
 
         /// <inheritdoc />
@@ -64,9 +64,9 @@ namespace DataFacadeRdbms
         {
             DbCommand dbCmd = (DbCommand)cmd;
 
-            SqlCommand sqlCmd = dbCmd as SqlCommand;
+            SqlCommand? sqlCmd = dbCmd as SqlCommand;
 
-            sqlCmd.Parameters.Add(param, GetSqlDbTypeFromDbParamType(dbParamType), size).Value = value;
+            sqlCmd?.Parameters.Add(param, GetSqlDbTypeFromDbParamType(dbParamType), size).Value = value;
         }
 
         /// <inheritdoc />
