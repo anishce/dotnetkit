@@ -112,7 +112,7 @@ namespace DataFacadeRdbms
         }
 
         /// <inheritdoc />
-        public object SafeConvertFromDBNull(IDataReader reader, string columnName)
+        public object? SafeConvertFromDBNull(IDataReader reader, string columnName)
         {
             return DBNull.Value.Equals(reader[columnName]) ? null : reader[columnName];
         }
