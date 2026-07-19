@@ -10,7 +10,7 @@ namespace DataFacadeRdbms.Async
     /// <summary>
     /// Represents an open & close connection, open data reader, execure data command that access relational databases asynchronously.
     /// </summary>
-    public interface IDataFacadeAsync
+    public interface IAsyncDataFacade
     {
             /// <summary>
             /// Closes the database connection.
