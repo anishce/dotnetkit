@@ -3,78 +3,119 @@
 // Author: AnishCeDev
 // ************************************************************************
 
-using System;
-using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 using System.Data;
-using System.Text;
+using System.Data.Common;
 
 namespace DataFacadeRdbms.Async
 {
-    public class AsyncSqlServerDataFacade : IAsyncDataFacade
+    public sealed class AsyncSqlServerDataFacade : IAsyncDataFacade
     {
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, object value)
         {
-            throw new NotImplementedException();
+            SqlCommand sqlCmd = GetSqlCommand(cmd);
+            sqlCmd.Parameters.Add(param, GetSqlDbTypeFromDbParamType(dbParamType)).Value = value;
         }
 
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, ParameterDirection paramDirection)
         {
-            throw new NotImplementedException();
+            SqlCommand sqlCmd = GetSqlCommand(cmd);
+            sqlCmd.Parameters.Add(param, GetSqlDbTypeFromDbParamType(dbParamType)).Direction = paramDirection;
         }
 
         public void AddParameter(IDbCommand cmd, string param, DbParamType dbParamType, int size, object value)
         {
-            throw new NotImplementedException();
+            SqlCommand sqlCmd = GetSqlCommand(cmd);
+            sqlCmd.Parameters.Add(param, GetSqlDbTypeFromDbParamType(dbParamType), size).Value = value;
         }
 
-        public void CloseConnectionAsync(IDbConnection conn)
+        public async Task CloseConnectionAsync(IDbConnection conn)
         {
-            throw new NotImplementedException();
+            if (conn != null && conn.State != ConnectionState.Closed)
+            {
+                await ((DbConnection)conn).CloseAsync().ConfigureAwait(false);
+            }
         }
 
-        public int ExecuteNonQueryAsync(IDbCommand cmd)
+        public async Task<int> ExecuteNonQueryAsync(IDbCommand cmd)
         {
-            throw new NotImplementedException();
+            return await GetSqlCommand(cmd).ExecuteNonQueryAsync().ConfigureAwait(false);
         }
 
-        public IDataReader ExecuteReaderAsync(IDbCommand cmd)
+        public async Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd)
         {
-            throw new NotImplementedException();
+            return await ExecuteReaderAsync(cmd, CommandBehavior.Default).ConfigureAwait(false);
         }
 
-        public IDataReader ExecuteReaderAsync(IDbCommand cmd, CommandBehavior cmdBehavior)
+        public async Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CommandBehavior cmdBehavior)
         {
-            throw new NotImplementedException();
+            return await GetSqlCommand(cmd).ExecuteReaderAsync(cmdBehavior).ConfigureAwait(false);
         }
 
-        public object ExecuteScalarAsync(IDbCommand cmd)
+        public async Task<object?> ExecuteScalarAsync(IDbCommand cmd)
         {
-            throw new NotImplementedException();
+            return await GetSqlCommand(cmd).ExecuteScalarAsync().ConfigureAwait(false);
         }
 
-        public IDbCommand GetDbCommandAsync(string commandText, IDbConnection conn)
+        public IDbCommand GetDbCommand(string commandText, IDbConnection conn)
         {
-            throw new NotImplementedException();
+            return new SqlCommand(commandText, GetSqlConnection(conn));
         }
 
         public IDbCommand GetDbCommandAsync(string commandText, IDbConnection conn, IDbTransaction tran)
         {
-            throw new NotImplementedException();
+            return new SqlCommand(commandText, GetSqlConnection(conn), GetSqlTransaction(tran));
         }
 
-        public IDbConnection GetDbConnectionAsync(string connectionString)
+        public IDbConnection GetDbConnection(string connectionString)
         {
-            throw new NotImplementedException();
-        }
-
-        public IDbTransaction GetTransactionAsync(IDbConnection conn)
-        {
-            throw new NotImplementedException();
+            return new SqlConnection(connectionString);
         }
 
         public object? SafeConvertFromDBNull(IDataReader reader, string columnName)
         {
-            throw new NotImplementedException();
+            return DBNull.Value.Equals(reader[columnName]) ? null : reader[columnName];
+        }
+
+        private static SqlConnection GetSqlConnection(IDbConnection conn)
+        {
+            return conn as SqlConnection
+                ?? throw new ArgumentException("The connection must be a SqlConnection.", nameof(conn));
+        }
+
+        private static SqlTransaction GetSqlTransaction(IDbTransaction tran)
+        {
+            return tran as SqlTransaction
+                ?? throw new ArgumentException("The transaction must be a SqlTransaction.", nameof(tran));
+        }
+
+        private static SqlCommand GetSqlCommand(IDbCommand cmd)
+        {
+            return cmd as SqlCommand
+                ?? throw new ArgumentException("The command must be a SqlCommand.", nameof(cmd));
+        }
+
+        private static SqlDbType GetSqlDbTypeFromDbParamType(DbParamType type)
+        {
+            return type switch
+            {
+                DbParamType.String => SqlDbType.VarChar,
+                DbParamType.UnicodeString => SqlDbType.NVarChar,
+                DbParamType.DateTime => SqlDbType.DateTime,
+                DbParamType.Date => SqlDbType.Date,
+                DbParamType.Time => SqlDbType.Time,
+                DbParamType.Int16 => SqlDbType.TinyInt,
+                DbParamType.Int32 => SqlDbType.Int,
+                DbParamType.Int64 => SqlDbType.BigInt,
+                DbParamType.Decimal => SqlDbType.Decimal,
+                DbParamType.Boolean => SqlDbType.Bit,
+                _ => throw new ArgumentException("Invalid Db Param type.", nameof(type))
+            };
+        }
+
+        public async Task<IDbTransaction> GetTransactionAsync(IDbConnection conn)
+        {
+           return await GetSqlConnection(conn).BeginTransactionAsync().ConfigureAwait(false);
         }
     }
 }
